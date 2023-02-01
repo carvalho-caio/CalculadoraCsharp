@@ -1,5 +1,6 @@
 ﻿using System;
 using Calculadora.Dependencies;
+using Calculadora01.Entities;
 
 namespace Calculadora
 {
@@ -7,49 +8,121 @@ namespace Calculadora
     {
         static void Main(string[] args)
         {
+            double Acumulator = 0;
+            string Operation = "t";
+            double F = 0;
+            double S = 0;
+
             Console.WriteLine("Hello! Welcome to the Calculator.");
             Console.WriteLine("");
 
-            string Exit = "n";
+            string Exit = "a";
 
             do
             {
-                Console.Write("Type the first number: ");
-                double A = Double.Parse(Console.ReadLine());
+                Console.WriteLine("");
 
-                Console.Write("Type the second number: ");
-                double B = Double.Parse(Console.ReadLine());
+                Console.WriteLine(Acumulator);
+
+                if (Exit == "a")
+                {
+                    Console.Write("Digite o primeiro número: ");
+                    F = double.Parse(Console.ReadLine());
+
+                    Console.WriteLine("");
+
+                    Console.Write("Digite o segundo número: ");
+                    S = double.Parse(Console.ReadLine());
+
+                    View.ChooseOperation();
+                    Operation = Console.ReadLine();
+
+                    if (Operation == "+")
+                    {
+                        Acumulator = Calculator.Plus(F, S);
+                        F = 0;
+                        S = 0;
+                    }
+                    else if (Operation == "-")
+                    {
+                        Acumulator = Calculator.Minus(F, S);
+                        F = 0;
+                        S = 0;
+                    }
+                    else if (Operation == "*")
+                    {
+                        Acumulator = Calculator.Multi(F, S);
+                        F = 0;
+                        S = 0;
+                    }
+                    else if (Operation == "/")
+                    {
+                        Acumulator = Calculator.Div(F, S);
+                        F = 0;
+                        S = 0;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Parametro invalido!");
+                        break;
+                    }
+                }
+
+                if (Acumulator > 0 && Exit != "a")
+                {
+                    Console.Write("Digite o segundo número: ");
+                    S = double.Parse(Console.ReadLine());
+
+                    View.ChooseOperation();
+                    Operation = Console.ReadLine();
+
+                    if (Operation == "+")
+                    {
+                        Acumulator = Calculator.Plus(Acumulator, S);
+                        F = 0;
+                        S = 0;
+                    }
+                    else if (Operation == "-")
+                    {
+                        Acumulator = Calculator.Minus(Acumulator, S);
+                        F = 0;
+                        S = 0;
+                    }
+                    else if (Operation == "*")
+                    {
+                        Acumulator = Calculator.Multi(Acumulator, S);
+                        F = 0;
+                        S = 0;
+                    }
+                    else if (Operation == "/")
+                    {
+                        Acumulator = Calculator.Div(Acumulator, S);
+                        F = 0;
+                        S = 0;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Parametro invalido!");
+                        break;
+                    }
+                }
+
+                Console.WriteLine($"Total: {Acumulator}");
 
                 Console.WriteLine("");
 
-                Console.Write("Which opereration do you want to execute? ");
-                Console.Write("\nPlus (+)\nMinus(-)\nMultiplication(*)\nDivision(/)\n");
-                string Operation = Console.ReadLine();
-
-                if (Operation == "+")
-                {
-                    Console.WriteLine(Calculator.Plus(A, B));
-                }
-                else if (Operation == "-")
-                {
-                    Console.WriteLine(Calculator.Minus(A, B));
-                }
-                else if (Operation == "*")
-                {
-                    Console.WriteLine(Calculator.Multi(A, B));
-                }
-                else if (Operation == "/")
-                {
-                    Console.WriteLine(Calculator.Div(A, B));
-                }
-                else
-                {
-                    Console.WriteLine("Invalid Syntax");
-                    break;
-                }
-
-                Console.WriteLine("Do you want to keep using? (y/n)");
+                View.Options();
                 Exit = Console.ReadLine();
+
+                if (Exit == "r")
+                {
+                    Acumulator = 0;
+                    Exit = "a";
+                }
+                else if (Exit != "n")
+                {
+                    Exit = "c";
+                }
 
             } while (Exit != "n");
         }

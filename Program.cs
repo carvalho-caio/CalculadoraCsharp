@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Calculadora.Dependencies;
 using Calculadora01.Entities;
 
@@ -8,123 +8,72 @@ namespace Calculadora
     {
         static void Main(string[] args)
         {
-            double Acumulator = 0;
+            Calculator Calc = new Calculator (0, 0, 0);
+
             string Operation = "t";
-            double F = 0;
-            double S = 0;
 
             Console.WriteLine("Hello! Welcome to the Calculator.");
             Console.WriteLine("");
 
-            string Exit = "a";
+            string AppFlow = "a";
 
             do
             {
                 Console.WriteLine("");
 
-                Console.WriteLine(Acumulator);
+                Console.WriteLine(Calc.MainValue);
 
-                if (Exit == "a")
+                //first flow or after a reset;
+                if (AppFlow == "a")
                 {
-                    Console.Write("Digite o primeiro número: ");
-                    F = double.Parse(Console.ReadLine());
+                    Console.Write("Type the first number: ");
+                    Calc.N1 = double.Parse(Console.ReadLine());
 
                     Console.WriteLine("");
 
-                    Console.Write("Digite o segundo número: ");
-                    S = double.Parse(Console.ReadLine());
+                    Console.Write("Type the second number: ");
+                    Calc.N2 = double.Parse(Console.ReadLine());
 
                     View.ChooseOperation();
                     Operation = Console.ReadLine();
 
-                    if (Operation == "+")
-                    {
-                        Acumulator = Calculator.Plus(F, S);
-                        F = 0;
-                        S = 0;
-                    }
-                    else if (Operation == "-")
-                    {
-                        Acumulator = Calculator.Minus(F, S);
-                        F = 0;
-                        S = 0;
-                    }
-                    else if (Operation == "*")
-                    {
-                        Acumulator = Calculator.Multi(F, S);
-                        F = 0;
-                        S = 0;
-                    }
-                    else if (Operation == "/")
-                    {
-                        Acumulator = Calculator.Div(F, S);
-                        F = 0;
-                        S = 0;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Parametro invalido!");
-                        break;
-                    }
+                    Calc.MainValue = Calc.Op(Operation);
                 }
 
-                if (Acumulator > 0 && Exit != "a")
+                //second flow, to keep the first number and acumulate it;
+                if (AppFlow == "b")
                 {
-                    Console.Write("Digite o segundo número: ");
-                    S = double.Parse(Console.ReadLine());
+                    Console.Write("Type the second number: ");
+                    Calc.N2 = double.Parse(Console.ReadLine());
 
                     View.ChooseOperation();
                     Operation = Console.ReadLine();
 
-                    if (Operation == "+")
-                    {
-                        Acumulator = Calculator.Plus(Acumulator, S);
-                        F = 0;
-                        S = 0;
-                    }
-                    else if (Operation == "-")
-                    {
-                        Acumulator = Calculator.Minus(Acumulator, S);
-                        F = 0;
-                        S = 0;
-                    }
-                    else if (Operation == "*")
-                    {
-                        Acumulator = Calculator.Multi(Acumulator, S);
-                        F = 0;
-                        S = 0;
-                    }
-                    else if (Operation == "/")
-                    {
-                        Acumulator = Calculator.Div(Acumulator, S);
-                        F = 0;
-                        S = 0;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Parametro invalido!");
-                        break;
-                    }
+                    Calc.MainValue = Calc.Sop(Operation);
                 }
 
-                Console.WriteLine($"Total: {Acumulator}");
+                Console.WriteLine($"Total: {Math.Round(Calc.MainValue, 2)}");
 
                 Console.WriteLine("");
 
                 View.Options();
-                Exit = Console.ReadLine();
+                AppFlow = Console.ReadLine();
 
-                if (Exit == "r")
+                if (AppFlow == "r") //reset
                 {
-                    Acumulator = 0;
-                    Exit = "a";
+                    Calc.ResetMain();
+                    AppFlow = "a";
                 }
-                else if (Exit != "n")
+                else if (AppFlow == "c")
                 {
-                    Exit = "c";
+                    AppFlow = "b";
+                }
+                else
+                {
+                    AppFlow = "n";
                 }
 
-            } while (Exit != "n");
+            } while (AppFlow != "n");
         }
     }
 }

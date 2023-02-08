@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +20,7 @@ namespace Calculadora01.Entities
 
         public static void ChooseOperation ()
         {
-            Console.WriteLine("Escolha qual operação quer realizar: ");
+            Console.WriteLine("Choose the operation: ");
             Console.WriteLine(" +");
             Console.WriteLine(" -");
             Console.WriteLine(" *");
@@ -29,9 +29,9 @@ namespace Calculadora01.Entities
 
         public static void Options ()
         {
-            Console.WriteLine("Digite 'n' para sair.");
-            Console.WriteLine("Digite 'r' para resetar os valores.");
-            Console.WriteLine("Digite 'c' para continuar utilizando.");
+            Console.WriteLine("Type 'n' to quit.");
+            Console.WriteLine("Type 'r' to reset the values.");
+            Console.WriteLine("Type 'c' to keep using.");
         }
     }
 }

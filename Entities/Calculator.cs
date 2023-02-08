@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,24 +8,82 @@ namespace Calculadora.Dependencies
 {
     internal class Calculator
     {
-        public static double Plus(double a, double b)
+        //main variable that will persist the value in the program;
+        public double MainValue { get; set; }
+
+        //value variables to do the math and be reset;
+        public double N1 { get; set; }
+        public double N2 { get; set; }
+
+
+        //constructors
+        public Calculator()
         {
-            return a + b;
+
         }
 
-        public static double Minus(double a, double b)
+        public Calculator(double mainValue, double n1, double n2)
         {
-            return a - b;
+            MainValue = mainValue;
+            N1 = n1;
+            N2 = n2;
         }
 
-        public static double Multi(double a, double b)
+        //methods
+        public double Op(string op)
         {
-            return a * b;
+            if(op == "+")
+            {
+                return N1 + N2;
+            }
+            else if (op == "-")
+            {
+                return N1 - N2;
+            }
+            else if (op == "*")
+            {
+                return N1 * N2;
+            }
+            else if (op == "/")
+            {
+                return N1 / N2;
+            }
+            else
+            {
+                Console.WriteLine("Invalid parameter!");
+                return 0;
+            }
         }
 
-        public static double Div(double a, double b)
+        public double Sop (string op)
         {
-            return a / b;
+            if(op == "+")
+            {
+                return MainValue += N2;
+            }
+            else if (op == "-")
+            {
+                return MainValue -= N2;
+            }
+            else if (op == "*")
+            {
+                return MainValue *= N2;
+            }
+            else if (op == "/")
+            {
+                return MainValue /= N2;
+            }
+            else
+            {
+                Console.WriteLine("Invalid parameter!");
+                return 0;
+            }
         }
+
+        public void ResetMain ()
+        {
+            MainValue = 0;
+        }
+
     }
 }
